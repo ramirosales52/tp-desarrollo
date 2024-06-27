@@ -27,10 +27,12 @@ export class ProductsComponent {
           "Access-Control-Allow-Origin": "*",
         },
       });
+
       this.products = response.data;
       this.titles = Object.keys(this.products[0]).filter(
         (header) => !this.excludedTitles.includes(header),
       );
+
       console.log(this.titles);
       console.log(response.data);
     } catch (err) {
