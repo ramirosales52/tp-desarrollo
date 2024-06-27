@@ -1,0 +1,12 @@
+{
+  "material-icon-theme.activeIconPack": "nest",
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "productos",
+      "database": "${workspaceFolder:ProductsRepository}/products.db"
+    }
+  ],
+  "sqltools.useNodeRuntime": true
+}
