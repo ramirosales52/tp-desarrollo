@@ -25,9 +25,12 @@ export class UsersService {
     try {
       const user = new UserEntity();
       Object.assign(user, body);
+
       user.password = hashSync(user.password, 10);
+
       await this.repository.save(user);
       return { status: 'created' };
+
     } catch (error) {
       throw new HttpException('Error de creacion', 500);
     }
@@ -38,10 +41,12 @@ export class UsersService {
     if (user == null) {
       throw new UnauthorizedException();
     }
+    
     const compareResult = compareSync(body.password, user.password);
     if (!compareResult) {
       throw new UnauthorizedException();
     }
+
     return {
       accessToken: this.jwtService.generateToken({ email: user.email }, 'auth'),
       refreshToken: this.jwtService.generateToken(
@@ -50,6 +55,7 @@ export class UsersService {
       ),
     };
   }
+
   async findByEmail(email: string): Promise<UserEntity> {
     return await this.repository.findOneBy({ email });
   }

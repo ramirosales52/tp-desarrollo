@@ -1,0 +1,12 @@
+{
+  "sqltools.useNodeRuntime": true,
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "usersdb",
+      "database": "${workspaceFolder:tp-desarrollo}/backend/users/db.sql"
+    }
+  ],
+  "material-icon-theme.activeIconPack": "nest"
+}

@@ -15,7 +15,7 @@ export class UsersController {
   @Get('me')
   me(@Req() req: Request & { user: UserEntity }) {
     return {
-      firstName:req.user.firstName
+      firstName: req.user.firstName
     }
   }
 
