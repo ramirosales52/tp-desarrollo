@@ -9,57 +9,58 @@ import { ProductTypeService } from 'src/product-type/product-type.service';
 @Injectable()
 export class ProductsService {
   constructor(
-    @InjectRepository(ProductEntity) private productRepository: Repository<ProductEntity>,
-    private productTypesService: ProductTypeService
-  ) { }
-
+    @InjectRepository(ProductEntity)
+    private productRepository: Repository<ProductEntity>,
+    private productTypesService: ProductTypeService,
+  ) {}
 
   async createProduct(product: CreateProductDto) {
-    const productTypeFound = await this.productTypesService.getProductType(product.productTypeId)
+    const productTypeFound = await this.productTypesService.getProductType(
+      product.productTypeId,
+    );
 
     if (!productTypeFound) {
-      throw new HttpException("Product type not found", HttpStatus.NOT_FOUND)
+      throw new HttpException('Product type not found', HttpStatus.NOT_FOUND);
     }
 
-    const newProduct = this.productRepository.create(product)
+    const newProduct = this.productRepository.create(product);
 
-    return this.productRepository.save(newProduct)
+    return this.productRepository.save(newProduct);
   }
 
   getProducts() {
     return this.productRepository.find({
-      relations: ['productType']
-    })
+      relations: ['productType'],
+    });
   }
 
   async getProduct(id: number) {
     const productFound = await this.productRepository.findOne({
       where: {
-        id
+        id,
       },
-      relations: ['productType']
-    })
+      relations: ['productType'],
+    });
 
     if (!productFound) {
-      return new HttpException("Product not found", HttpStatus.NOT_FOUND)
+      return new HttpException('Product not found', HttpStatus.NOT_FOUND);
     }
 
-    return productFound
+    return productFound;
   }
 
   async updateProduct(id: number, product: UpdateProductDto) {
     const productFound = await this.productRepository.findOne({
       where: {
-        id
-      }
-    })
+        id,
+      },
+    });
 
     if (!productFound) {
-      return new HttpException("Product not found", HttpStatus.NOT_FOUND)
+      return new HttpException('Product not found', HttpStatus.NOT_FOUND);
     }
 
-    const updatedProduct = Object.assign(productFound, product)
-    return this.productRepository.save(updatedProduct)
+    const updatedProduct = Object.assign(productFound, product);
+    return this.productRepository.save(updatedProduct);
   }
-
 }

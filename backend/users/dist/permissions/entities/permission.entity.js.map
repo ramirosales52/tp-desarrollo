@@ -1,0 +1,1 @@
+{"version":3,"file":"permission.entity.js","sourceRoot":"","sources":["../../../src/permissions/entities/permission.entity.ts"],"names":[],"mappings":";;;;;;;;;;;;AAAA,qCAAiE;AAG1D,IAAM,gBAAgB,GAAtB,MAAM,gBAAgB;CAK5B,CAAA;AALY,4CAAgB;AAE3B;IADC,IAAA,gCAAsB,GAAE;;4CACf;AAEV;IADC,IAAA,gBAAM,GAAE;;8CACG;2BAJD,gBAAgB;IAD5B,IAAA,gBAAM,EAAC,aAAa,CAAC;GACT,gBAAgB,CAK5B"}

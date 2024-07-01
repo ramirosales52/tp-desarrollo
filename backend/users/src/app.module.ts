@@ -5,6 +5,8 @@ import { entities } from './entities';
 import { UsersModule } from './users/users.module';
 import { JwtModule } from './jwt/jwt.module';
 import { AuthGuard } from './middlewares/auth.middleware';
+import { RolesModule } from './roles/roles.module';
+import { PermissionsModule } from './permissions/permissions.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { AuthGuard } from './middlewares/auth.middleware';
       synchronize: true,
     }),
     JwtModule,
+    RolesModule,
+    PermissionsModule,
   ],
   controllers: [AppController],
   providers: [AuthGuard],
