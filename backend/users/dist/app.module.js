@@ -14,6 +14,8 @@ const entities_1 = require("./entities");
 const users_module_1 = require("./users/users.module");
 const jwt_module_1 = require("./jwt/jwt.module");
 const auth_middleware_1 = require("./middlewares/auth.middleware");
+const roles_module_1 = require("./roles/roles.module");
+const permissions_module_1 = require("./permissions/permissions.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -28,6 +30,8 @@ exports.AppModule = AppModule = __decorate([
                 synchronize: true,
             }),
             jwt_module_1.JwtModule,
+            roles_module_1.RolesModule,
+            permissions_module_1.PermissionsModule,
         ],
         controllers: [app_controller_1.AppController],
         providers: [auth_middleware_1.AuthGuard],

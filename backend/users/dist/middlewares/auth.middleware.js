@@ -33,7 +33,7 @@ let AuthGuard = class AuthGuard {
             return true;
         }
         catch (error) {
-            console.log(...oo_oo(`2419219690_36_6_36_24_4`, error));
+            console.log(error);
             throw new common_1.UnauthorizedException(error?.message);
         }
     }
