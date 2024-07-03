@@ -5,7 +5,7 @@
       "previewLimit": 50,
       "driver": "SQLite",
       "name": "usersdb",
-      "database": "${workspaceFolder:tp-desarrollo}/backend/users/db.sql"
+      "database": "${workspaceFolder:tp-desarrollo}/backend/db.sql"
     }
   ],
   "material-icon-theme.activeIconPack": "nest"
