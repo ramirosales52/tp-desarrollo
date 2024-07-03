@@ -5,18 +5,27 @@ import { RegisterDTO } from '../interfaces/register.dto';
 import { RequestWithUser } from 'src/interfaces/request-user';
 import { Request } from 'express';
 import { UserEntity } from 'src/entities/user.entity';
-import { AuthGuard } from '../middlewares/auth.middleware';
+// import { AuthGuard } from '../middlewares/auth.middleware';
+// import { Roles } from 'src/decorators/roles.decorator';
+// import { RoleGuard } from 'src/middlewares/role.middleware';
+import { Role } from 'src/enums/role.enum';
+import { Auth } from 'src/decorators/auth.decorator';
 
 @Controller('')
 export class UsersController {
   constructor(private service: UsersService) {}
 
-  @UseGuards(AuthGuard)
+  // @Roles(Role.USER)
+  // @UseGuards(AuthGuard, RoleGuard)
   @Get('me')
+  @Auth(Role.USER)
   me(@Req() req: Request & { user: UserEntity }) {
-    return {
-      firstName: req.user.firstName
-    }
+    return req.user;
+  }
+
+  @Get('users')
+  users() {
+    return this.service.repository.find();
   }
 
   @Post('login')

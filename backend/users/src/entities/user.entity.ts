@@ -13,6 +13,8 @@ export class UserEntity extends BaseEntity implements UserI {
   firstName: string;
   @Column()
   lastName: string;
+  @Column({default: 'user'})
+  role: string;
 
   get permissionCodes() {
     return ['create-users'];

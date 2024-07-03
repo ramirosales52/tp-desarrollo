@@ -17,7 +17,7 @@ export class JwtService {
   };
   
   generateToken(
-    payload: { email: string },
+    payload: { email: string, role: string},
     type: 'refresh' | 'auth' = 'auth',
   ): string {
     return sign(payload, this.config[type].secret, {
@@ -37,13 +37,13 @@ export class JwtService {
 
       if (timeToExpire < 20) {
         return {
-          accessToken: this.generateToken({ email: payload.email }),
-          refreshToken: this.generateToken({ email: payload.email }, 'refresh'),
+          accessToken: this.generateToken({ email: payload.email, role: payload.role}),
+          refreshToken: this.generateToken({ email: payload.email, role: payload.role }, 'refresh'),
         };
       }
 
       return {
-        accessToken: this.generateToken({ email: payload.email }),
+        accessToken: this.generateToken({ email: payload.email, role: payload.role}),
       };
     } catch (error) {
       throw new UnauthorizedException();

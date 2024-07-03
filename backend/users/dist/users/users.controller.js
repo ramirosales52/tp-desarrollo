@@ -17,15 +17,17 @@ const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
 const login_dto_1 = require("../interfaces/login.dto");
 const register_dto_1 = require("../interfaces/register.dto");
-const auth_middleware_1 = require("../middlewares/auth.middleware");
+const role_enum_1 = require("../enums/role.enum");
+const auth_decorator_1 = require("../decorators/auth.decorator");
 let UsersController = class UsersController {
     constructor(service) {
         this.service = service;
     }
     me(req) {
-        return {
-            firstName: req.user.firstName
-        };
+        return req.user;
+    }
+    users() {
+        return this.service.repository.find();
     }
     login(body) {
         return this.service.login(body);
@@ -42,13 +44,19 @@ let UsersController = class UsersController {
 };
 exports.UsersController = UsersController;
 __decorate([
-    (0, common_1.UseGuards)(auth_middleware_1.AuthGuard),
     (0, common_1.Get)('me'),
+    (0, auth_decorator_1.Auth)(role_enum_1.Role.USER),
     __param(0, (0, common_1.Req)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", void 0)
 ], UsersController.prototype, "me", null);
+__decorate([
+    (0, common_1.Get)('users'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", void 0)
+], UsersController.prototype, "users", null);
 __decorate([
     (0, common_1.Post)('login'),
     __param(0, (0, common_1.Body)()),

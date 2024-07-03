@@ -22,18 +22,20 @@ export class UsersService {
   async canDo(user: UserI, permission: string) {}
 
   async register(body: RegisterDTO) {
-    try {
-      const user = new UserEntity();
-      Object.assign(user, body);
+    const userExists = await this.findByEmail(body.email);
 
-      user.password = hashSync(user.password, 10);
+      if(userExists) {
+        throw new HttpException('El usuario ya existe', 400);
+      }
 
-      await this.repository.save(user);
-      return { status: 'created' };
+    const user = new UserEntity();
+    Object.assign(user, body);
 
-    } catch (error) {
-      throw new HttpException('Error de creacion', 500);
-    }
+    user.password = hashSync(user.password, 10);
+
+    await this.repository.save(user);
+    return user;
+
   }
 
   async login(body: LoginDTO) {
@@ -48,11 +50,8 @@ export class UsersService {
     }
 
     return {
-      accessToken: this.jwtService.generateToken({ email: user.email }, 'auth'),
-      refreshToken: this.jwtService.generateToken(
-        { email: user.email },
-        'refresh',
-      ),
+      accessToken: this.jwtService.generateToken({ email: user.email, role: user.role }, 'auth'),
+      refreshToken: this.jwtService.generateToken({ email: user.email, role: user.role }, 'refresh'),
     };
   }
 

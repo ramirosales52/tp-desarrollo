@@ -11,6 +11,7 @@ export declare class JwtService {
     };
     generateToken(payload: {
         email: string;
+        role: string;
     }, type?: 'refresh' | 'auth'): string;
     refreshToken(refreshToken: string): {
         accessToken: string;

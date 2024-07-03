@@ -15,9 +15,7 @@ export declare class UsersService {
         refreshToken?: undefined;
     }>;
     canDo(user: UserI, permission: string): Promise<void>;
-    register(body: RegisterDTO): Promise<{
-        status: string;
-    }>;
+    register(body: RegisterDTO): Promise<UserEntity>;
     login(body: LoginDTO): Promise<{
         accessToken: string;
         refreshToken: string;

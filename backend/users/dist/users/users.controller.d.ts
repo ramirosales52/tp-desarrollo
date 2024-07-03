@@ -9,16 +9,13 @@ export declare class UsersController {
     constructor(service: UsersService);
     me(req: Request & {
         user: UserEntity;
-    }): {
-        firstName: string;
-    };
+    }): UserEntity;
+    users(): Promise<UserEntity[]>;
     login(body: LoginDTO): Promise<{
         accessToken: string;
         refreshToken: string;
     }>;
-    register(body: RegisterDTO): Promise<{
-        status: string;
-    }>;
+    register(body: RegisterDTO): Promise<UserEntity>;
     canDo(request: RequestWithUser, permission: string): Promise<void>;
     refreshToken(request: Request): Promise<{
         accessToken: string;

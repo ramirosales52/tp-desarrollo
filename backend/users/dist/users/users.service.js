@@ -24,16 +24,15 @@ let UsersService = class UsersService {
     }
     async canDo(user, permission) { }
     async register(body) {
-        try {
-            const user = new user_entity_1.UserEntity();
-            Object.assign(user, body);
-            user.password = (0, bcrypt_1.hashSync)(user.password, 10);
-            await this.repository.save(user);
-            return { status: 'created' };
+        const userExists = await this.findByEmail(body.email);
+        if (userExists) {
+            throw new common_1.HttpException('El usuario ya existe', 400);
         }
-        catch (error) {
-            throw new common_1.HttpException('Error de creacion', 500);
-        }
+        const user = new user_entity_1.UserEntity();
+        Object.assign(user, body);
+        user.password = (0, bcrypt_1.hashSync)(user.password, 10);
+        await this.repository.save(user);
+        return user;
     }
     async login(body) {
         const user = await this.findByEmail(body.email);
@@ -45,8 +44,8 @@ let UsersService = class UsersService {
             throw new common_1.UnauthorizedException();
         }
         return {
-            accessToken: this.jwtService.generateToken({ email: user.email }, 'auth'),
-            refreshToken: this.jwtService.generateToken({ email: user.email }, 'refresh'),
+            accessToken: this.jwtService.generateToken({ email: user.email, role: user.role }, 'auth'),
+            refreshToken: this.jwtService.generateToken({ email: user.email, role: user.role }, 'refresh'),
         };
     }
     async findByEmail(email) {
