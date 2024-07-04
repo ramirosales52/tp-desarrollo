@@ -9,7 +9,8 @@ import { ProductTypesEntity } from './entities/productType.entity';
 export class ProductTypeService {
 
   constructor(
-    @InjectRepository(ProductTypesEntity) private productTypesRepository: Repository<ProductTypesEntity>
+    @InjectRepository(ProductTypesEntity) 
+    private productTypesRepository: Repository<ProductTypesEntity>
   ) { }
 
   createProductType(productType: CreateProductTypeDto) {

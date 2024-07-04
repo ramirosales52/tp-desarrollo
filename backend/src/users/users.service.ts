@@ -10,10 +10,10 @@ import { UserEntity } from './entities/user.entity';
 
 @Injectable()
 export class UsersService {
+  
   constructor(
     @InjectRepository(UserEntity)
     private readonly userRepository: Repository<UserEntity>,
-    private authService: AuthService
   ) {}
 
   createUser(createUserDto: CreateUserDto) {
@@ -23,10 +23,6 @@ export class UsersService {
   getUsers() {
     return this.userRepository.find();
   } 
-
-  async refreshToken(refreshToken: string) {
-    return this.authService.refreshToken(refreshToken);
-  }
 
   async canDo(user: UserI, permission: string) {}
 

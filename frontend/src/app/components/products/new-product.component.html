@@ -1,0 +1,36 @@
+<app-navbar></app-navbar>
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Create product</h3>
+                    <form [formGroup]="newProductForm" (ngSubmit)="onSubmit()">
+                        <div class="mb-3">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" class="form-control" formControlName="name">
+                            <div *ngIf="submitted && newProductForm.get('name')?.errors" class="text-danger">
+                                Complete this field 
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="price">Price</label>
+                            <input type="number" id="price" class="form-control" formControlName="price">
+                            <div *ngIf="submitted && newProductForm.get('price')?.errors" class="text-danger">
+                                Complete this field 
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="productTypeId" class="form-label">Product type</label>
+                            <select id="productTypeId" class="form-select" formControlName="productTypeId">
+                              <option *ngFor="let productType of productTypes" [value]="productType.id">{{productType.name}}</option>
+                            </select>
+                          </div>
+                        <button type="submit" class="btn btn-success btn-block"><i class="far fa-plus-square"></i> Create</button>
+                        <button class="btn btn-outline-primary btn-block ms-3" (click)="goBack()"><i class="fas fa-arrow-alt-circle-left"></i> Back</button>
+                    </form>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>

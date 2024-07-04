@@ -15,6 +15,7 @@ import { Role } from 'src/common/enums/role.enum';
 import { ProductEntity } from './entities/product.entity';
 import { Auth } from 'src/auth/decorators/auth.decorator';
 
+@Auth(Role.USER)
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
@@ -32,7 +33,7 @@ export class ProductsController {
   }
 
   @Post()
-  createUser(
+  createProduct(
     @Body() newProduct: CreateProductDto,
   ): Promise<HttpException | ProductEntity> {
     return this.productsService.createProduct(newProduct);

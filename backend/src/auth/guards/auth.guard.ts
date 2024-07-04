@@ -1,6 +1,8 @@
 import {
   CanActivate,
   ExecutionContext,
+  forwardRef,
+  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -24,7 +26,7 @@ export class AuthGuard implements CanActivate {
       const token = request.headers.authorization;
 
       if (token == null) {
-        throw new UnauthorizedException('El token no existe');
+        throw new UnauthorizedException('No token provided');
       }
       
       const payload = this.authService.getPayload(token);

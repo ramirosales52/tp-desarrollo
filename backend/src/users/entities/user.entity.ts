@@ -19,6 +19,7 @@ export class UserEntity extends BaseEntity implements UserI {
   @Column()
   lastName: string;
 
+  // @Column({ type: 'enum', enum: Role, default: Role.USER }) // Agregar un desplegable para elegir los roles (no compatible con SQLite)
   @Column({ default: Role.USER })
   role: Role;
 

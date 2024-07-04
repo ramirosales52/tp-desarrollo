@@ -1,7 +1,7 @@
 import { HttpException, Injectable, UnauthorizedException } from '@nestjs/common';
+import { UsersService } from 'src/users/users.service';
 import { sign, verify } from 'jsonwebtoken';
 import { Payload } from 'src/common/interfaces/payload';
-import { UsersService } from 'src/users/users.service';
 import { RegisterDTO } from './dto/register.dto';
 import { compareSync, hashSync } from 'bcrypt';
 import { LoginDTO } from './dto/login.dto';
@@ -9,28 +9,25 @@ import { UserEntity } from 'src/users/entities/user.entity';
 
 @Injectable()
 export class AuthService {
+  constructor(private usersService: UsersService) {}
+  
   // config.ts
   config = {
     auth: {
       secret: 'authSecret',
-      expiresIn: '15m',
+      expiresIn: '1d',
     },
     refresh: {
       secret: 'refreshSecret',
       expiresIn: '1d',
     },
   };
-
-  constructor(
-    private usersService: UsersService,
-  ) {}
-
   
   async register(body: RegisterDTO) {
     const userExists = await this.usersService.findByEmail(body.email);
 
     if(userExists) {
-      throw new HttpException('El usuario ya existe', 400);
+      throw new HttpException('User already exists', 400);
     }
 
     const user = new UserEntity();
@@ -45,13 +42,13 @@ export class AuthService {
 
   async login(body: LoginDTO) {
     const user = await this.usersService.findByEmailWithPassword(body.email);
-    if (user == null) {
-      throw new UnauthorizedException();
+    if (!user) {
+      throw new UnauthorizedException('User not found');
     }
     
     const compareResult = compareSync(body.password, user.password);
     if (!compareResult) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Wrong password');
     }
 
     return {

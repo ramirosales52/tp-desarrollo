@@ -5,9 +5,10 @@ export class RoleEntity {
     @PrimaryGeneratedColumn()
     id: number
     @Column()
-    code: string
+    name: string
     @Column()
     description: string
     // @Column()
     // permissionId: number
+    
 }
