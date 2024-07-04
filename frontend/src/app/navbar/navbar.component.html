@@ -9,13 +9,16 @@
 
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="/home"><i class="fa-solid fa-house"></i> Inicio</a>
+          <a class="nav-link" href="/home"><i class="fa-solid fa-house"></i> Home</a>
         </li>
         <li class="nav-item" *ngIf="isLogged"> 
-          <a class="nav-link" href="/products"><i class="far fa-list-alt"></i> Lista</a>
+          <a class="nav-link" href="/products"><i class="far fa-list-alt"></i> List</a>
         </li>
         <li class="nav-item" *ngIf="isAdmin">
-          <a class="nav-link"  href="/new"><i class="fas fa-plus-circle"></i> Nuevo Producto</a>
+          <a class="nav-link"  href="/new"><i class="fas fa-plus-circle"></i> New product</a>
+        </li>
+        <li class="nav-item" *ngIf="isAdmin">
+          <a class="nav-link"  href="/newType"><i class="fas fa-plus-circle"></i> New product type</a>
         </li>
       </ul>
 

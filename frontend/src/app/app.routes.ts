@@ -8,6 +8,7 @@ import { NewProductComponent } from './components/products/new-product.component
 import { ProductComponent } from './components/products/product.component';
 import { EditProductComponent } from './components/products/edit-product.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { NewProductTypeComponent } from './components/products/new-product-type.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: 'products/:id', component:  ProductComponent },
   { path: 'products/edit/:id', component:  EditProductComponent },
   { path: 'new', component: NewProductComponent },
+  { path: 'newType', component: NewProductTypeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: '**', redirectTo: 'home', pathMatch: 'full' },

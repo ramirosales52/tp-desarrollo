@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import axios from 'axios';
 import { ProductI } from './interfaces/product';
+import { ProductTypeI } from './interfaces/productType';
 
 @Injectable({
   providedIn: 'root'
@@ -43,6 +44,21 @@ export class ProductsService {
     } catch (err) {
       console.log(err);
       return err;
+    }
+  }
+
+  async createProductType(body: ProductTypeI) {
+    try {
+      const response = (await axios.post(`${this.url}/product-types`, body, {
+        headers: {
+          "Authorization": this.tokenObject.accessToken,
+          "Access-Control-Allow-Origin": "*",
+        },
+      })).data
+      return response
+    } catch (err) {
+      console.log(err)
+      return err
     }
   }
 

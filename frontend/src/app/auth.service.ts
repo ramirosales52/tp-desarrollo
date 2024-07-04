@@ -20,7 +20,7 @@ export class AuthService {
       const response = (await axios.post(`${this.url}/auth/login`, body)).data;
       localStorage.setItem('token', JSON.stringify(response));
       const time = moment(response.expirationTime).diff(moment());
-      timer(time*0.5).subscribe(async () => {
+      timer(time * 0.5).subscribe(async () => {
         await this.refreshToken();
       });
       this.router.navigate(['/products']);
@@ -42,7 +42,7 @@ export class AuthService {
   }
 
   async refreshToken() {
-    const tokenObject:{refreshToken: string, accessToken: string} = JSON.parse(localStorage.getItem('token')??"{refreshToken:''}")
+    const tokenObject: {refreshToken: string, accessToken: string} = JSON.parse(localStorage.getItem('token')??"{refreshToken:''}")
     const response = (
       await axios.get(`${this.url}/auth/refresh-token`, {
         headers: {
